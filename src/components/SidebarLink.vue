@@ -8,7 +8,7 @@
   >
     <div class="flex q-pt-md q-pb-md self-lg-center">
       <q-icon :name="icon" size="50px" color="white" class="col-2 q-pr-md" />
-      <q-item-label class="col text-white sidebar-text q-pl">{{ title }}</q-item-label>
+      <q-item-label class="col self-center text-white sidebar-text q-pl">{{ title }}</q-item-label>
     </div>
 
   </q-item>
