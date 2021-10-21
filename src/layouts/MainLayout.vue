@@ -12,8 +12,14 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Turbodega
         </q-toolbar-title>
+
+        <q-space />
+        <q-btn flat round dense icon="person" >
+          <q-badge floating color="red">2</q-badge>
+        </q-btn>
+
       </q-toolbar>
     </q-header>
 
@@ -23,21 +29,13 @@
       bordered
       className="bg-grey-2"
     >
-      <q-list class="flex column bg-primary full-height" >
+      <q-list class="flex column bg-primary full-height q-pt-xl" >
         <q-avatar size="100px" class="self-center">
           <img src="~/assets/tb.jpg">
         </q-avatar>
 
+        <SidebarLink v-for="link in linkList" v-bind="link" :key="link.id" class=""/>
 
-        <q-item clickable tag="a" target="_blank" rel="noopener" href="http://quasar.dev">
-          <q-item-section avatar>
-            <q-icon color="white" name="school"/>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="text-white">Docs</q-item-label>
-            <q-item-label caption class="text-white">https://quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
       </q-list>
     </q-drawer>
 
@@ -49,9 +47,14 @@
 
 <script>
 import {ref} from 'vue'
+import SidebarLink from "components/SidebarLink";
+import {linkList} from "src/router/link-list";
 
 export default {
   name: 'MyLayout',
+  components: {
+    SidebarLink
+  },
   setup() {
     const leftDrawerOpen = ref(false)
 
@@ -60,6 +63,7 @@ export default {
     }
 
     return {
+      linkList: linkList,
       leftDrawerOpen,
       toggleLeftDrawer
     }
