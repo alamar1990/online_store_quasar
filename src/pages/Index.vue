@@ -1,6 +1,10 @@
 <template>
   <q-page class="row q-pa-md">
     <div class="col">
+      <div class="q-pb-md">
+        <span class="page-title">Mis Productos</span>
+      </div>
+
       <div class="row justify-between">
         <div class="">
           <div class="row">
@@ -61,35 +65,32 @@
 
       </div>
 
+      <div class="row q-pt-md">
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+      </div>
     </div>
-    <div class="row bg-primary">
 
-    </div>
   </q-page>
 </template>
 
 <script>
 import {defineComponent} from 'vue';
 import TbButton from "components/TbButton";
+import Card from "components/Card";
 
 export default defineComponent({
   name: 'PageIndex',
-  components: {TbButton},
+  components: {Card, TbButton},
 })
 </script>
 
 <style lang="scss" scoped>
-.search-input{
-  border-radius: 8px;
-}
-.q-field--standout.q-field--readonly {
-  .q-field__control {
-    &::before {
-      opacity: 1;
-      background: transparent;
-      border: 1px solid black;
-      border-radius: 8px;
-    }
-  }
+.page-title{
+  font-size: 2rem;
+  font-weight: bold;
+  color: $accent;
 }
 </style>

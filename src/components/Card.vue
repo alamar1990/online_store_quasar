@@ -1,30 +1,16 @@
 <template>
   <q-card class="my-card">
-    <q-card-section horizontal>
+    <q-card-section horizontal >
       <q-img
-        class="col-5"
+        class="col-6 self-center"
         src="~/assets/parallax2.jpg"
+        style="height: 150px;"
       />
 
       <q-card-section>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Lorem ipsum dolor sit amet,
       </q-card-section>
     </q-card-section>
-
-    <q-separator />
-
-    <q-card-actions>
-      <q-btn flat round icon="event" />
-      <q-btn flat>
-        5:30PM
-      </q-btn>
-      <q-btn flat>
-        7:00PM
-      </q-btn>
-      <q-btn flat color="primary">
-        Reserve
-      </q-btn>
-    </q-card-actions>
   </q-card>
 </template>
 
@@ -38,3 +24,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.my-card{
+  width: 300px;
+  height: 150px;
+  margin: 10px;
+}
+</style>
