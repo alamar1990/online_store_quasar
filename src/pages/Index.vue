@@ -59,17 +59,22 @@
               </q-list>
             </q-btn-dropdown>
 
-            <TbButton label="Crear Producto" icon_right="add" class="self-center q-pl-lg" />
+            <TbButton label="Crear Producto" icon_right="add" class="self-center q-pl-lg"/>
           </div>
         </div>
 
       </div>
-
+      <div class="q-pa-lg flex flex-center">
+        <q-pagination
+          v-model="page"
+          :min="currentPage"
+          :max="Math.ceil(cardList.length/totalPages)"
+          input-class="text-orange-10"
+        >
+        </q-pagination>
+      </div>
       <div class="row q-pt-md">
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <Card v-for="(card, index) in getData" v-bind="card" :key="index"></Card>
       </div>
     </div>
 
@@ -77,13 +82,111 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import {defineComponent, ref} from 'vue';
 import TbButton from "components/TbButton";
 import Card from "components/Card";
 
+const cardList = [
+  {
+    id: 1,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 2,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 3,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 4,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 5,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 6,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 7,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 8,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 9,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 10,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 11,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 12,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 13,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 14,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 15,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+  {
+    id: 16,
+    text: "Lorem ipsum dolor sit amet,",
+    image_url: "~/assets/parallax2.jpg",
+  },
+]
 export default defineComponent({
   name: 'PageIndex',
   components: {Card, TbButton},
+
+  computed: {
+    getData() {
+      return this.cardList.slice((this.page - 1) * this.totalPages, (this.page - 1) * this.totalPages + this.totalPages)
+    }
+  },
+
+  setup() {
+    const page = ref(1)
+    const currentPage = ref(1)
+    const nextPage = ref(null)
+    const totalPages = ref(5)
+    return {
+      cardList, page, currentPage, nextPage, totalPages
+    }
+  }
 })
 </script>
 

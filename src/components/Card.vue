@@ -3,12 +3,12 @@
     <q-card-section horizontal >
       <q-img
         class="col-6 self-center"
-        src="~/assets/parallax2.jpg"
+        :src="image_url"
         style="height: 150px;"
       />
 
       <q-card-section>
-        Lorem ipsum dolor sit amet,
+        {{ text }}
       </q-card-section>
     </q-card-section>
   </q-card>
@@ -20,7 +20,12 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Card',
   props: {
-
+    text: {
+      type: String
+    },
+    image_url: {
+      type: String
+    },
   }
 })
 </script>
