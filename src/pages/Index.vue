@@ -59,7 +59,7 @@
               </q-list>
             </q-btn-dropdown>
 
-            <TbButton label="Crear Producto" icon_right="add" class="self-center q-pl-lg"/>
+            <TbButton label="Crear Producto" icon_right="add" class="self-center q-pl-lg" @click="createProduct"/>
           </div>
         </div>
 
@@ -85,6 +85,7 @@
 import {defineComponent, ref} from 'vue';
 import TbButton from "components/TbButton";
 import Card from "components/Card";
+import {create, ProductService} from '../api/Product/Product.service'
 
 const cardList = [
   {
@@ -168,14 +169,30 @@ const cardList = [
     image_url: "~/assets/parallax2.jpg",
   },
 ]
+
+
 export default defineComponent({
   name: 'PageIndex',
   components: {Card, TbButton},
+  methods: {
+    async createProduct() {
+      const {data} = await this.productService.create({
+        id: 2,
+        name: 'Billy',
+        age: 44
+      })
+      console.log('result', data)
+    }
+  },
 
   computed: {
     getData() {
       return this.cardList.slice((this.page - 1) * this.totalPages, (this.page - 1) * this.totalPages + this.totalPages)
     }
+  },
+
+  mounted() {
+    console.log('Mounted', this.$db)
   },
 
   setup() {
