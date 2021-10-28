@@ -85,18 +85,17 @@
 import {defineComponent, ref} from 'vue';
 import TbButton from "components/TbButton";
 import Card from "components/Card";
-import {create, ProductService} from '../api/Product/Product.service'
 
 const cardList = [
   {
     id: 1,
     text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
+    image_url: "https://picsum.photos/seed/picsum/150",
   },
   {
     id: 2,
     text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
+    image_url: "https://picsum.photos/seed/picsum/150",
   },
   {
     id: 3,
@@ -176,12 +175,12 @@ export default defineComponent({
   components: {Card, TbButton},
   methods: {
     async createProduct() {
-      const {data} = await this.productService.create({
-        id: 2,
-        name: 'Billy',
-        age: 44
-      })
-      console.log('result', data)
+      // const {data} = await this.productService.create({
+      //   id: 2,
+      //   name: 'Billy',
+      //   age: 44
+      // })
+      console.log('result', await this.productService.all())
     }
   },
 
