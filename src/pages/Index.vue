@@ -68,7 +68,7 @@
         <q-pagination
           v-model="page"
           :min="currentPage"
-          :max="Math.ceil(cardList.length/totalPages)"
+          :max="Math.ceil(productList.length/itemsPerPage)"
           input-class="text-orange-10"
         >
         </q-pagination>
@@ -85,90 +85,8 @@
 import {defineComponent, ref} from 'vue';
 import TbButton from "components/TbButton";
 import Card from "components/Card";
-
-const cardList = [
-  {
-    id: 1,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "https://picsum.photos/seed/picsum/150",
-  },
-  {
-    id: 2,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "https://picsum.photos/seed/picsum/150",
-  },
-  {
-    id: 3,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 4,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 5,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 6,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 7,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 8,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 9,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 10,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 11,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 12,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 13,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 14,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 15,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-  {
-    id: 16,
-    text: "Lorem ipsum dolor sit amet,",
-    image_url: "~/assets/parallax2.jpg",
-  },
-]
-
+import {useQuasar} from "quasar";
+import addProductDialog from "components/Dialogs/addProductDialog";
 
 export default defineComponent({
   name: 'PageIndex',
@@ -180,27 +98,61 @@ export default defineComponent({
       //   name: 'Billy',
       //   age: 44
       // })
-      console.log('result', await this.productService.all())
+      // console.log('result', await this.productService.all())
+      await this.fetchData()
+      this.addProduct()
+    },
+
+    async fetchData() {
+      try {
+        this.productList = await this.productService.all()
+      } catch (e) {
+        console.log(e)
+      }
     }
+
   },
 
   computed: {
     getData() {
-      return this.cardList.slice((this.page - 1) * this.totalPages, (this.page - 1) * this.totalPages + this.totalPages)
+      return this.productList.slice((this.page - 1) * this.itemsPerPage, (this.page - 1) * this.itemsPerPage + this.itemsPerPage)
     }
+  },
+
+  created() {
   },
 
   mounted() {
     console.log('Mounted', this.$db)
+    this.fetchData()
   },
 
   setup() {
+    const $q = useQuasar()
+
+    const productList = ref([])
     const page = ref(1)
     const currentPage = ref(1)
     const nextPage = ref(null)
-    const totalPages = ref(5)
+    const itemsPerPage = ref(5)
+
+    function addProduct() {
+      $q.dialog({
+        component: addProductDialog,
+
+
+      }).onOk(() => {
+        console.log('OK')
+      }).onCancel(() => {
+        console.log('Cancel')
+      }).onDismiss(() => {
+        console.log('Called on OK or Cancel')
+      })
+
+    }
+
     return {
-      cardList, page, currentPage, nextPage, totalPages
+      productList, page, currentPage, nextPage, itemsPerPage, addProduct
     }
   }
 })
