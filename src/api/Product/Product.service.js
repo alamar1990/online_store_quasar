@@ -9,7 +9,7 @@ class ProductService {
   // CRUD METHODS
   async all() {
     try {
-      return this.dbInstance.collection(this.collectionName).get()
+      return this.dbInstance.collection(this.collectionName).get({keys: true})
     } catch (e) {
       throw e
     }
@@ -17,7 +17,7 @@ class ProductService {
 
   async view(condition) {
     try {
-      return this.dbInstance.collection(this.collectionName).doc(condition).get()
+      return this.dbInstance.collection(this.collectionName).doc(condition).get({keys: true})
     } catch (e) {
       throw e
     }

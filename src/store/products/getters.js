@@ -1,2 +1,3 @@
-export function someGetter (/* state */) {
+export function getProductList(state) {
+  return state.productList
 }
