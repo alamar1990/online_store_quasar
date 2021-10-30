@@ -30,55 +30,55 @@ export default boot(async ({app, router}) => {
       },
       {
         text: "Product 4",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 5",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 6",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 7",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 8",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 9",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 10",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 11",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 12",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 13",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 14",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 15",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
       {
         text: "Product 16",
-        image_url: "~/assets/parallax2.jpg",
+        image_url: "https://picsum.photos/150",
       },
     ])
 
