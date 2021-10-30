@@ -74,7 +74,7 @@
         </q-pagination>
       </div>
       <div class="row q-pt-md">
-        <Card v-for="(card, index) in getData" v-bind="card" :key="index"></Card>
+        <Card v-for="(card) in getData" v-bind="card.data" :key="card.key"></Card>
       </div>
     </div>
 
@@ -82,34 +82,21 @@
 </template>
 
 <script>
+import {useStore} from 'vuex'
 import {defineComponent, ref} from 'vue';
 import TbButton from "components/TbButton";
 import Card from "components/Card";
 import {useQuasar} from "quasar";
 import addProductDialog from "components/Dialogs/addProductDialog";
+import useProductController from "src/composables/useProductController";
 
 export default defineComponent({
   name: 'PageIndex',
   components: {Card, TbButton},
   methods: {
     async createProduct() {
-      // const {data} = await this.productService.create({
-      //   id: 2,
-      //   name: 'Billy',
-      //   age: 44
-      // })
-      // console.log('result', await this.productService.all())
-      await this.fetchData()
-      this.addProduct()
+      this.openAddProductDialog()
     },
-
-    async fetchData() {
-      try {
-        this.productList = await this.productService.all()
-      } catch (e) {
-        console.log(e)
-      }
-    }
 
   },
 
@@ -122,37 +109,33 @@ export default defineComponent({
   created() {
   },
 
-  mounted() {
-    console.log('Mounted', this.$db)
-    this.fetchData()
+  async mounted() {
+    // console.log('Mounted', this.$db)
+    await this.fetchData()
   },
 
   setup() {
     const $q = useQuasar()
+    const store = useStore()
 
-    const productList = ref([])
+    const {productList, fetchData} = useProductController()
+
     const page = ref(1)
     const currentPage = ref(1)
     const nextPage = ref(null)
     const itemsPerPage = ref(5)
 
-    function addProduct() {
+    function openAddProductDialog() {
       $q.dialog({
         component: addProductDialog,
-
-
       }).onOk(() => {
-        console.log('OK')
       }).onCancel(() => {
-        console.log('Cancel')
       }).onDismiss(() => {
-        console.log('Called on OK or Cancel')
       })
-
     }
 
     return {
-      productList, page, currentPage, nextPage, itemsPerPage, addProduct
+      productList, page, currentPage, nextPage, itemsPerPage, openAddProductDialog, store, fetchData
     }
   }
 })

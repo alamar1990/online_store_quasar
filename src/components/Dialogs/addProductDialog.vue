@@ -11,8 +11,8 @@
           />
 
           <q-card-section>
-            <q-input label="Product title"/>
-            <q-input label="Image url"/>
+            <q-input v-model="title" label="Product title"/>
+            <q-input v-model="imageUrl" label="Image url"/>
           </q-card-section>
         </q-card-section>
 
@@ -27,16 +27,11 @@
 
 <script>
 import {useDialogPluginComponent} from 'quasar'
+import {ref} from "vue";
+import useProductController from "src/composables/useProductController";
 
 export default {
-  props: {
-    text: {
-      type: String
-    },
-    image_url: {
-      type: String
-    },
-  },
+  props: {},
 
   emits: [
     ...useDialogPluginComponent.emits
@@ -44,11 +39,26 @@ export default {
 
   setup() {
     const {dialogRef, onDialogHide, onDialogOK, onDialogCancel} = useDialogPluginComponent()
+    const title = ref('')
+    const imageUrl = ref('')
+
+    const {addProduct} = useProductController()
+
     return {
+      title, imageUrl,
       dialogRef,
       onDialogHide,
-      onOKClick() {
-        onDialogOK()
+      async onOKClick() {
+        try {
+          if (!title.value) return
+          await addProduct({
+            text: title.value,
+            image_url: imageUrl.value || "https://picsum.photos/150",
+          })
+          onDialogOK()
+        } catch (e) {
+          console.log(e)
+        }
       },
 
       onCancelClick: onDialogCancel
