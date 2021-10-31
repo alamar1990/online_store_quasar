@@ -13,9 +13,34 @@ export async function fetchData({commit}) {
   }
 }
 
+export async function viewProduct({commit}, condition) {
+  try {
+    return await productService.view(condition)
+  } catch (e) {
+    throw e
+  }
+}
+
 export async function addProduct({commit}, payload) {
   try {
     await productService.create(payload)
+  } catch (e) {
+    throw e
+  }
+}
+
+export async function editProduct({commit}, payload) {
+  try {
+    let {condition, payloadData} = payload
+    await productService.update(condition, payloadData)
+  } catch (e) {
+    throw e
+  }
+}
+
+export async function deleteProduct({commit}, condition) {
+  try {
+    await productService.remove(condition)
   } catch (e) {
     throw e
   }

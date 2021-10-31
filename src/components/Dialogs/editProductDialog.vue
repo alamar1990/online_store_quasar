@@ -5,9 +5,9 @@
       <q-card class="my-card">
         <q-card-section horizontal>
           <q-img
-              class="col-6 self-center"
-              :src="imageUrl || 'https://picsum.photos/150'"
-              style="height: 150px;"
+            class="col-6 self-center"
+            :src="imageUrl || 'https://picsum.photos/150'"
+            style="height: 150px;"
           />
 
           <q-card-section>
@@ -18,8 +18,9 @@
 
       </q-card>
       <q-card-actions align="center">
-        <q-btn color="primary" label="OK" @click="onOKClick"/>
         <q-btn color="primary" label="Cancel" @click="onCancelClick"/>
+        <q-btn color="warning" label="DELETE" @click="onDELETEClick"/>
+        <q-btn color="primary" label="EDIT" @click="onEDITClick"/>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -31,30 +32,46 @@ import {ref} from "vue";
 import useProductController from "src/composables/useProductController";
 
 export default {
-  props: {},
+  props: {
+    productKey: {
+      type: String
+    },
+  },
 
   emits: [
     ...useDialogPluginComponent.emits
   ],
 
-  setup() {
+  async mounted() {
+    const productDetails = await this.viewProduct(this.props.productKey)
+    let {text, image_url} = productDetails
+    this.title = text
+    this.imageUrl = image_url
+  },
+
+  setup(props) {
     const {dialogRef, onDialogHide, onDialogOK, onDialogCancel} = useDialogPluginComponent()
     const title = ref('')
     const imageUrl = ref('')
 
-    const {addProduct} = useProductController()
-
+    const {viewProduct, deleteProduct, editProduct} = useProductController()
     return {
+      props,
       title, imageUrl,
+      viewProduct,
       dialogRef,
       onDialogHide,
-      async onOKClick() {
+      async onEDITClick() {
         try {
-          if (!title.value) return
-          await addProduct({
-            text: title.value,
-            image_url: imageUrl.value || "https://picsum.photos/150",
-          })
+          await editProduct({condition: props.productKey, payloadData: {text: title.value, image_url: imageUrl.value}})
+          onDialogOK()
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async onDELETEClick() {
+        try {
+          await deleteProduct(props.productKey)
           onDialogOK()
         } catch (e) {
           console.log(e)

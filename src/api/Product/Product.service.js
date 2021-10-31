@@ -33,7 +33,7 @@ class ProductService {
 
   async update(condition, payload) {
     try {
-      return await this.dbInstance.collection(this.collectionName).doc(condition).update(payload)
+      return await this.dbInstance.collection(this.collectionName).doc(condition).set(payload)
     } catch (e) {
       throw e
     }

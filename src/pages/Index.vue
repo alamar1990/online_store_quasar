@@ -74,7 +74,8 @@
         </q-pagination>
       </div>
       <div class="row q-pt-md">
-        <Card v-for="(card) in getData" v-bind="card.data" :key="card.key"></Card>
+        <Card v-for="(card) in getData" v-bind="card.data" :key="card.key" @click="openEditProductDialog(card.key)"
+              class="cursor-pointer"></Card>
       </div>
     </div>
 
@@ -89,6 +90,7 @@ import Card from "components/Card";
 import {useQuasar} from "quasar";
 import addProductDialog from "components/Dialogs/addProductDialog";
 import useProductController from "src/composables/useProductController";
+import editProductDialog from "components/Dialogs/editProductDialog";
 
 export default defineComponent({
   name: 'PageIndex',
@@ -134,8 +136,29 @@ export default defineComponent({
       })
     }
 
+    function openEditProductDialog(productKey) {
+      if (!productKey) return console.log('No Product for editing/delete')
+      $q.dialog({
+        component: editProductDialog,
+        componentProps: {
+          productKey: productKey,
+        }
+      }).onOk(() => {
+      }).onCancel(() => {
+      }).onDismiss(() => {
+      })
+    }
+
     return {
-      productList, page, currentPage, nextPage, itemsPerPage, openAddProductDialog, store, fetchData
+      productList,
+      page,
+      currentPage,
+      nextPage,
+      itemsPerPage,
+      openEditProductDialog,
+      openAddProductDialog,
+      store,
+      fetchData
     }
   }
 })
