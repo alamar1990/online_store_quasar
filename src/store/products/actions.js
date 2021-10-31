@@ -24,6 +24,7 @@ export async function viewProduct({commit}, condition) {
 export async function searchProduct({commit}, payload) {
   try {
     let {condition, limit} = payload
+    console.log('payload', payload)
     return await productService.viewLimit(condition, limit)
   } catch (e) {
     throw e

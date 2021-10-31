@@ -19,7 +19,7 @@
       </q-card>
       <q-card-actions align="center">
         <q-btn color="primary" label="OK" @click="onOKClick"/>
-        <q-btn color="primary" label="Cancel" @click="onCancelClick"/>
+        <q-btn color="primary" label="Cancelar" @click="onCancelClick"/>
       </q-card-actions>
     </q-card>
   </q-dialog>

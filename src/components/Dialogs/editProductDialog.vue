@@ -17,10 +17,10 @@
         </q-card-section>
 
       </q-card>
-      <q-card-actions align="center">
-        <q-btn color="primary" label="Cancel" @click="onCancelClick"/>
-        <q-btn color="warning" label="DELETE" @click="onDELETEClick"/>
-        <q-btn color="primary" label="EDIT" @click="onEDITClick"/>
+      <q-card-actions align="evenly" style="margin: 10px">
+        <q-btn color="secondary" label="Cancelar" @click="onCancelClick"/>
+        <q-btn color="primary" label="Editar" @click="onEDITClick"/>
+        <q-btn color="negative" label="Eliminar" @click="onDELETEClick"/>
       </q-card-actions>
     </q-card>
   </q-dialog>

@@ -18,14 +18,24 @@
               @filter="filterFn"
               style="width: 250px"
               behavior="menu"
+              :display-value="`${model ? model.data.productName : ''}`"
             >
               <template v-slot:append>
                 <q-icon name="search"/>
               </template>
+
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps">
+                  <q-item-section>
+                    <q-item-label>{{ scope.opt.data.productName }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </template>
+
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-grey">
-                    No results
+                    Sin resultados
                   </q-item-section>
                 </q-item>
               </template>
@@ -105,6 +115,8 @@ import useProductController from "src/composables/useProductController";
 import editProductDialog from "components/Dialogs/editProductDialog";
 
 
+const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
+
 export default defineComponent({
   name: 'PageIndex',
   components: {Card, TbButton},
@@ -120,6 +132,7 @@ export default defineComponent({
       return this.productList.slice((this.page - 1) * this.itemsPerPage, (this.page - 1) * this.itemsPerPage + this.itemsPerPage)
     }
   },
+
 
   setup() {
     const $q = useQuasar()
@@ -156,31 +169,21 @@ export default defineComponent({
 
     function filterFn(val, update) {
       if (val === '') {
-        update(async () => {
-          searchOptions.value = await searchProduct({
-            condition: {productName: val},
-            limit: 5
-          })
+        update(() => {
+          searchOptions.value = productList.value
         })
         return
       }
 
-      update(async () => {
+      update(() => {
         const needle = val.toLowerCase()
-        // searchOptions.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
-        searchOptions.value = searchProduct({
-          condition: {productName: needle},
-          limit: 5
-        })
+        searchOptions.value = productList.value.filter(v => v.data.productName.toLowerCase().indexOf(needle) > -1)
       })
     }
 
-    onMounted(async () => {
-      await fetchData()
-      searchOptions.value = await searchProduct({
-        condition: {},
-        limit: 5
-      })
+    onMounted(() => {
+      fetchData()
+      searchOptions.value = productList.value
     })
 
     return {
