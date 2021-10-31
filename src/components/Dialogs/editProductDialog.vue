@@ -44,8 +44,8 @@ export default {
 
   async mounted() {
     const productDetails = await this.viewProduct(this.props.productKey)
-    let {text, image_url} = productDetails
-    this.title = text
+    let {productName, image_url} = productDetails
+    this.title = productName
     this.imageUrl = image_url
   },
 
@@ -63,7 +63,10 @@ export default {
       onDialogHide,
       async onEDITClick() {
         try {
-          await editProduct({condition: props.productKey, payloadData: {text: title.value, image_url: imageUrl.value}})
+          await editProduct({
+            condition: props.productKey,
+            payloadData: {productName: title.value, image_url: imageUrl.value}
+          })
           onDialogOK()
         } catch (e) {
           console.log(e)

@@ -23,6 +23,14 @@ class ProductService {
     }
   }
 
+  async viewLimit(condition, limit) {
+    try {
+      return this.dbInstance.collection(this.collectionName).doc(condition).limit(limit).get({keys: true})
+    } catch (e) {
+      throw e
+    }
+  }
+
   async create(payload) {
     try {
       return await this.dbInstance.collection(this.collectionName).add(payload)

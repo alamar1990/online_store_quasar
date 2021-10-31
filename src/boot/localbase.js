@@ -17,67 +17,67 @@ export default boot(async ({app, router}) => {
     console.log('Running seeder')
     await app.config.globalProperties.$db.collection('product').set([
       {
-        text: "Product 1",
+        productName: "Product 1",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 2",
+        productName: "Product 2",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 3",
+        productName: "Product 3",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 4",
+        productName: "Product 4",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 5",
+        productName: "Product 5",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 6",
+        productName: "Product 6",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 7",
+        productName: "Product 7",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 8",
+        productName: "Product 8",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 9",
+        productName: "Product 9",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 10",
+        productName: "Product 10",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 11",
+        productName: "Product 11",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 12",
+        productName: "Product 12",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 13",
+        productName: "Product 13",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 14",
+        productName: "Product 14",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 15",
+        productName: "Product 15",
         image_url: "https://picsum.photos/150",
       },
       {
-        text: "Product 16",
+        productName: "Product 16",
         image_url: "https://picsum.photos/150",
       },
     ])

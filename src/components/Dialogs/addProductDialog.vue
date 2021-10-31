@@ -52,7 +52,7 @@ export default {
         try {
           if (!title.value) return
           await addProduct({
-            text: title.value,
+            productName: title.value,
             image_url: imageUrl.value || "https://picsum.photos/150",
           })
           onDialogOK()

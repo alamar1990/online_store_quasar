@@ -9,6 +9,13 @@ const useProductController = () => {
     async fetchData() {
       await store.dispatch('products/fetchData')
     },
+    async searchProduct(productConditions) {
+      try {
+        return await store.dispatch('products/searchProduct', productConditions)
+      } catch (e) {
+        throw e
+      }
+    },
     async viewProduct(productKey) {
       try {
         return await store.dispatch('products/viewProduct', productKey)

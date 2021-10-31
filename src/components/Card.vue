@@ -8,7 +8,7 @@
       />
 
       <q-card-section>
-        {{ text }}
+        {{ productName }}
       </q-card-section>
     </q-card-section>
   </q-card>
@@ -20,7 +20,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Card',
   props: {
-    text: {
+    productName: {
       type: String
     },
     image_url: {

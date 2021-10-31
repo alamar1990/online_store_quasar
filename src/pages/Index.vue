@@ -8,16 +8,28 @@
       <div class="row justify-between">
         <div class="">
           <div class="row">
-            <q-input
-              debounce="500"
+            <q-select
               filled
-              placeholder="Search"
-              style="border-radius: 30px;"
+              v-model="model"
+              use-input
+              input-debounce="0"
+              label="Buscar productos"
+              :options="searchOptions"
+              @filter="filterFn"
+              style="width: 250px"
+              behavior="menu"
             >
               <template v-slot:append>
-                <q-icon name="search" />
+                <q-icon name="search"/>
               </template>
-            </q-input>
+              <template v-slot:no-option>
+                <q-item>
+                  <q-item-section class="text-grey">
+                    No results
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
 
             <TbButton label="Buscar" class="self-center q-pl-lg" />
           </div>
@@ -84,13 +96,14 @@
 
 <script>
 import {useStore} from 'vuex'
-import {defineComponent, ref} from 'vue';
+import {defineComponent, ref, onMounted} from 'vue';
 import TbButton from "components/TbButton";
 import Card from "components/Card";
 import {useQuasar} from "quasar";
 import addProductDialog from "components/Dialogs/addProductDialog";
 import useProductController from "src/composables/useProductController";
 import editProductDialog from "components/Dialogs/editProductDialog";
+
 
 export default defineComponent({
   name: 'PageIndex',
@@ -108,19 +121,11 @@ export default defineComponent({
     }
   },
 
-  created() {
-  },
-
-  async mounted() {
-    // console.log('Mounted', this.$db)
-    await this.fetchData()
-  },
-
   setup() {
     const $q = useQuasar()
-    const store = useStore()
+    const searchOptions = ref(null)
 
-    const {productList, fetchData} = useProductController()
+    const {productList, fetchData, searchProduct} = useProductController()
 
     const page = ref(1)
     const currentPage = ref(1)
@@ -149,16 +154,50 @@ export default defineComponent({
       })
     }
 
+    function filterFn(val, update) {
+      if (val === '') {
+        update(async () => {
+          searchOptions.value = await searchProduct({
+            condition: {productName: val},
+            limit: 5
+          })
+        })
+        return
+      }
+
+      update(async () => {
+        const needle = val.toLowerCase()
+        // searchOptions.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+        searchOptions.value = searchProduct({
+          condition: {productName: needle},
+          limit: 5
+        })
+      })
+    }
+
+    onMounted(async () => {
+      await fetchData()
+      searchOptions.value = await searchProduct({
+        condition: {},
+        limit: 5
+      })
+    })
+
     return {
       productList,
       page,
       currentPage,
       nextPage,
       itemsPerPage,
+
+      model: ref(null),
+      searchOptions,
+      filterFn,
+
       openEditProductDialog,
       openAddProductDialog,
-      store,
-      fetchData
+      fetchData,
+      searchProduct,
     }
   }
 })
