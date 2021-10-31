@@ -8,6 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "build": "quasar build",
+    "dev": "quasar dev",
     "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=master",
     "test": "echo \"No test specified\" && exit 0"
   },
